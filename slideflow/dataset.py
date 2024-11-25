@@ -3904,13 +3904,15 @@ class Dataset:
             self.update_manifest()
             manifest = self.manifest(filter=False)
         if self.min_tiles:
-            return [
+            filtered_in_manifest = [
                 f for f in filtered
                 if f in manifest and manifest[f]['total'] >= self.min_tiles
             ]
+            return filtered_in_manifest
         else:
-            return [f for f in filtered
+            filtered_in_manifest = [f for f in filtered
                     if f in manifest and manifest[f]['total'] > 0]
+            return filtered_in_manifest
 
     def tfrecords_by_subfolder(self, subfolder: str) -> List[str]:
         """Return a list of all tfrecords in a specific subfolder.
